@@ -3,10 +3,10 @@ import { CelebrateError } from 'celebrate';
 import { AxiosError, isAxiosError } from 'axios';
 import AppError from '../utils/AppError';
 import { MulterError } from 'multer';
-import { TypeORMError, MongoCompatibilityError } from 'typeorm';
+import { BaseError, QueryError, ValidationError } from 'sequelize';
 
 export default function errorHandler(error: Error, request: Request, response: Response, _: NextFunction): Response {
-  console.log(error)
+  console.log(error);
   if (error instanceof AppError) {
     return response.status(error.statusCode).json({
       success: false,
@@ -44,7 +44,9 @@ export default function errorHandler(error: Error, request: Request, response: R
     });
   }
 
-  if (error instanceof TypeORMError) {
+  const sequeliseError = [BaseError, QueryError, ValidationError];
+
+  if (error instanceof BaseError || error instanceof QueryError || error instanceof ValidationError) {
     return response.status(400).json({
       success: false,
       message: error.message || 'Unexpected error.',

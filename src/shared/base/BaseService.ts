@@ -2,6 +2,10 @@ import { generateOTP } from '../utils';
 import * as uuid from 'uuid';
 import fileSys from '../../shared/Helpers/FsHelper';
 import path from 'path';
+import AppError from '../utils/AppError';
+import DronenRepository from '../../modules/drone/models/repositories/DroneRepository';
+import IGetDroneFilterDTO from '../../modules/drone/dtos/IGetDroneFilterDTO';
+import IDroneDTO from '@modules/drone/dtos/IDroneDTO';
 
 export type IBaseResponse = null | void | object;
 
@@ -10,31 +14,14 @@ export interface IBaseService {
 }
 
 export default abstract class BaseService {
+  protected readonly medicationFolder = path.join(__dirname, '../public/uploads/medication_files/');
 
-  protected readonly applicationFolder = path.join(__dirname, '../public/uploads/application_files/');
-  /**
-   * This property returns a generated otp
-   */
-  protected readonly generateOTP = generateOTP();
-
-  /**
-   * This property returns a generated uuid number
-   */
-  protected readonly uuid = uuid.v4();
-
-  /**
-   * This property creates a user when called.
-   */
-
-  protected generatedOtp = this.generateOTP;
-
-  protected async createDirIfNotExist(packageName: string): Promise<void> {
-    await fileSys.createDirIfNotExist_(`${this.applicationFolder}/${packageName}`);
+  protected removeUndefinedKeys(obj: object){
+    obj = Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== undefined));
+    return obj;
   }
-
-  protected async createVersDirIfNotExist(packageName: string, appVersion: string): Promise<void> {
-    await fileSys.createDirIfNotExist_(`${this.applicationFolder}/${packageName}`);
-    await fileSys.createDirIfNotExist_(`${this.applicationFolder}/${packageName}/${appVersion}`);
+  protected async createVersDirIfNotExist(medName: string): Promise<void> {
+    await fileSys.createDirIfNotExist_(`${this.medicationFolder}/${medName}`);
   }
 
   protected removeFolder(path: string) {

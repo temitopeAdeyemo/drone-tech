@@ -8,7 +8,7 @@ import 'express-async-errors';
 import environment from '../../src/config/environments.config';
 import errorHandler from '../../src/shared/middlewares/errorHandler';
 import rateLimiter from '../../src/shared/middlewares/rateLimiter';
-// import routes from '../../src/shared/routes';
+import routes from '../../src/shared/routes';
 import JsonResponse from '../../src/shared/utils/AppSuccess';
 import { morganMiddleware, systemLogs } from '../../src/shared/utils/Logger';
 import chalk from 'chalk';
@@ -66,14 +66,14 @@ export default class App {
       });
     });
 
-    // this.app.use('/api/v1', routes);
+    this.app.use('/api/v1', routes);
   }
 
   async syncDb() {
     await SequelizeConnection.connect();
 
     await db.sequelize
-      .sync({ force: false, logging: console.log })
+      .sync({ force: true, logging: console.log })
       .then(() => {
         console.log('Database synced successfully.');
       })

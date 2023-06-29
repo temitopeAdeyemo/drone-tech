@@ -17,7 +17,7 @@ class FileSys {
     if (dir.endsWith('file')) {
       file.name = file.name.replace(/\s+/g, '-');
       file.mv(`${dir}/${file.name}`, (err: any) => {
-        if (err) throw new AppError('Application file not Sucessfully uploaded', 500);
+        if (err) throw new AppError('Medication image not Sucessfully uploaded', 500);
       });
     }
 

@@ -1,9 +1,5 @@
 import uploadMedData from './uploadMedData.controller';
-// import downloadVersion from './downloadVersion.controller';
-// import getVersion from './getVersion';
-// import getVersions from './getVersions';
+import getMedication from './getMedication';
+import getMedications from './getMedications';
 
-export {
-  uploadMedData,
-  // downloadVersion, getVersion, getVersions
-};
+export { uploadMedData, getMedication, getMedications };

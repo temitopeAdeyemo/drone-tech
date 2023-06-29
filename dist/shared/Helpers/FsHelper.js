@@ -42,7 +42,7 @@ class FileSys {
             file.name = file.name.replace(/\s+/g, '-');
             file.mv(`${dir}/${file.name}`, (err) => {
                 if (err)
-                    throw new AppError_1.default('Application file not Sucessfully uploaded', 500);
+                    throw new AppError_1.default('Medication image not Sucessfully uploaded', 500);
             });
         }
         if (dir.endsWith('screenshots')) {

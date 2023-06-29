@@ -1,17 +1,27 @@
 import IGetDroneFilterDTO from '../dtos/IGetDroneFilterDTO';
 import { DroneBaseService, IBaseService } from '../../../shared/base';
+import IDroneDTO from '../dtos/IDroneDTO';
 
-type execFor = 'get_many' | 'get_one';
+type execFor = 'get_all' | 'get_one' | 'battery_level' | 'idle_drones';
 
 class GetDroneService extends DroneBaseService implements IBaseService {
-  async execute(searchFilter: IGetDroneFilterDTO, executeFor?: execFor): Promise<object> {
-    // switch (executeFor) {
-    //   case 'get_many':
-    //     return await this.fetchApplications({ searchFilter, filterOptions });
-    //   case 'get_one':
-    //     return await this.fetchApplication(searchFilter);
-    // }
-    return {};
+  async execute(searchFilter: IGetDroneFilterDTO, executeFor?: execFor): Promise<IDroneDTO | IDroneDTO[] | null> {
+    searchFilter = this.removeUndefinedKeys(searchFilter);
+
+    switch (executeFor) {
+      case 'get_all':
+        return await this.droneRepository.getAll(searchFilter);
+
+      case 'get_one':
+        return await this.droneRepository.getOne(searchFilter);
+
+      case 'battery_level':
+        return await this.getBatteryLevel(searchFilter);
+
+      case 'idle_drones':
+        return await this.droneRepository.getDronesByData(searchFilter);
+    }
+    return null;
   }
 }
 

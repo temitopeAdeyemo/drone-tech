@@ -1,5 +1,5 @@
 import medDataValidator from './medDataValidator';
+import getMedsValidator from './getMedsValidators';
 import getMedsValidators from './getMedsValidators';
-import getVersionValidator from './getMedsValidators';
 
-export { medDataValidator, getMedsValidators, getVersionValidator };
+export { medDataValidator, getMedsValidator, getMedsValidators };

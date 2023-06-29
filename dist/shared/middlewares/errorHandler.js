@@ -7,7 +7,7 @@ const celebrate_1 = require("celebrate");
 const axios_1 = require("axios");
 const AppError_1 = __importDefault(require("../utils/AppError"));
 const multer_1 = require("multer");
-const typeorm_1 = require("typeorm");
+const sequelize_1 = require("sequelize");
 function errorHandler(error, request, response, _) {
     console.log(error);
     if (error instanceof AppError_1.default) {
@@ -42,7 +42,8 @@ function errorHandler(error, request, response, _) {
             data: null,
         });
     }
-    if (error instanceof typeorm_1.TypeORMError) {
+    const sequeliseError = [sequelize_1.BaseError, sequelize_1.QueryError, sequelize_1.ValidationError];
+    if (error instanceof sequelize_1.BaseError || error instanceof sequelize_1.QueryError || error instanceof sequelize_1.ValidationError) {
         return response.status(400).json({
             success: false,
             message: error.message || 'Unexpected error.',

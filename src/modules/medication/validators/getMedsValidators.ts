@@ -1,12 +1,10 @@
 import { celebrate, Joi, Segments } from 'celebrate';
 
 export default celebrate({
-  [Segments.QUERY]: Joi.object().keys({
-    application_name: Joi.string(),
-    package_name: Joi.string().required(), //starts with com.
-    build_number: Joi.string(),
-    version_no: Joi.string(),
-    id: Joi.string(),
-    latest: Joi.string(),
+  [Segments.BODY]: Joi.object().keys({
+    name: Joi.string(),
+    weight: Joi.string().pattern(/^[a-zA-Z0-9_-]+$/), //starts with com.
+    code: Joi.string().pattern(/^[A-Z][A-Z_\-]*[A-Z]$/),
+    image: Joi.string(),
   }),
 });

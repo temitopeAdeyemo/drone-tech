@@ -14,12 +14,12 @@ class Medication extends sequelize_1.Model {
                 primaryKey: true,
             },
             name: {
-                type: sequelize_1.DataTypes.TEXT,
-                // unique: true,
+                type: sequelize_1.DataTypes.STRING,
+                unique: true,
                 allowNull: false,
             },
             weight: {
-                type: sequelize_1.DataTypes.TEXT,
+                type: sequelize_1.DataTypes.STRING,
                 allowNull: false,
             },
             code: {

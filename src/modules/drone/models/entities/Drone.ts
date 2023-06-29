@@ -25,15 +25,14 @@ class Drone extends Model implements DroneCreationArrtibutes {
           primaryKey: true,
         },
         serial_number: {
-          type: DataTypes.TEXT,
-          // unique: true,
+          type: DataTypes.STRING,
+          unique: true,
           allowNull: false,
+          validate: {
+            len: [10, 100],
+          },
         },
         model: {
-          type: DataTypes.TEXT,
-          allowNull: false,
-        },
-        code: {
           type: DataTypes.STRING,
           allowNull: false,
         },
@@ -43,11 +42,14 @@ class Drone extends Model implements DroneCreationArrtibutes {
         },
         battery_capacity: {
           type: DataTypes.STRING,
-          // allowNull: false,
+          defaultValue: '100',
+          allowNull: false,
         },
         state: {
           type: DataTypes.STRING,
           allowNull: false,
+          values: ['employee', 'super_admin', 'travel_admin', 'travel_team_manager', 'manager', 'supplier'],
+          defaultValue: 'employee',
         },
       },
       {
@@ -60,7 +62,8 @@ class Drone extends Model implements DroneCreationArrtibutes {
 
   static associateModel(): void {
     Drone.belongsTo(MedicationDetails, { targetKey: 'id', as: 'medicationDetails' });
+    
   }
 }
 
-export default Drone;
+export default Drone ;

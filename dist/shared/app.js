@@ -12,7 +12,7 @@ require("express-async-errors");
 const environments_config_1 = __importDefault(require("../../src/config/environments.config"));
 const errorHandler_1 = __importDefault(require("../../src/shared/middlewares/errorHandler"));
 const rateLimiter_1 = __importDefault(require("../../src/shared/middlewares/rateLimiter"));
-// import routes from '../../src/shared/routes';
+const routes_1 = __importDefault(require("../../src/shared/routes"));
 const AppSuccess_1 = __importDefault(require("../../src/shared/utils/AppSuccess"));
 const Logger_1 = require("../../src/shared/utils/Logger");
 const chalk_1 = __importDefault(require("chalk"));
@@ -60,12 +60,12 @@ class App {
                 message: 'Welcome To Drone Tech!',
             });
         });
-        // this.app.use('/api/v1', routes);
+        this.app.use('/api/v1', routes_1.default);
     }
     async syncDb() {
         await index_1.default.connect();
         await base_1.db.sequelize
-            .sync({ force: false, logging: console.log })
+            .sync({ force: true, logging: console.log })
             .then(() => {
             console.log('Database synced successfully.');
         })

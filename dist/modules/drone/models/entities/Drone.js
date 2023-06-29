@@ -14,15 +14,14 @@ class Drone extends sequelize_1.Model {
                 primaryKey: true,
             },
             serial_number: {
-                type: sequelize_1.DataTypes.TEXT,
-                // unique: true,
+                type: sequelize_1.DataTypes.STRING,
+                unique: true,
                 allowNull: false,
+                validate: {
+                    len: [10, 100],
+                },
             },
             model: {
-                type: sequelize_1.DataTypes.TEXT,
-                allowNull: false,
-            },
-            code: {
                 type: sequelize_1.DataTypes.STRING,
                 allowNull: false,
             },
@@ -32,11 +31,14 @@ class Drone extends sequelize_1.Model {
             },
             battery_capacity: {
                 type: sequelize_1.DataTypes.STRING,
-                // allowNull: false,
+                defaultValue: '100',
+                allowNull: false,
             },
             state: {
                 type: sequelize_1.DataTypes.STRING,
                 allowNull: false,
+                values: ['employee', 'super_admin', 'travel_admin', 'travel_team_manager', 'manager', 'supplier'],
+                defaultValue: 'employee',
             },
         }, {
             sequelize,

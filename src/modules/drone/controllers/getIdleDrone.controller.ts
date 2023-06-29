@@ -15,10 +15,10 @@ class GetDrone {
         battery_capacity,
         state,
       },
-      'get_one'
+      "idle_drones"
     );
 
-    const successResponse = jsonResponse.build(201, 'Drone data fetched successfully.', response);
+    const successResponse = jsonResponse.build(201, 'Idle drones data fetched successfully.', response);
 
     next(successResponse);
   }

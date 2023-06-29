@@ -7,17 +7,17 @@ class MedicationRepository {
   private ormRepository: typeof db.Medication;
 
   async findAll(data: IGetMedicationFilterDTO) {
-    this.ormRepository.findAll({
+    await this.ormRepository.findAll({
       where: { ...data },
     });
   }
 
   async create(data: MedicationCreationArrtibutes) {
-    this.ormRepository.create({ ...data });
+    await this.ormRepository.create({ ...data });
   }
 
   async update(updateData: IGetMedicationFilterDTO, data: IMedicationDTO) {
-    this.ormRepository.update(data, { where: { ...updateData } });
+    await this.ormRepository.update(data, { where: { ...updateData } });
   }
 }
 

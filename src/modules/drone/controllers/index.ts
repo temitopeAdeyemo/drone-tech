@@ -1,9 +1,7 @@
 import createApp from './uploadDrone.controller';
-// import downloadApp from './downloadApp.controller';
-// import getApplication from './getApp.controller';
-// import getApplications from './getApplications';
+import getDronesData from './getDronesData.controller';
+import getDroneData from './getDroneData.controller';
+import getBatteryLevel from './getBatteryLevel.controller';
+import getIdleDrone from './getIdleDrone.controller';
 
-export {
-  createApp,
-  // getApplications, getApplication, downloadApp
-};
+export { createApp, getDronesData, getDroneData, getBatteryLevel, getIdleDrone };

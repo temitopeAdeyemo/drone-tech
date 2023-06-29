@@ -26,12 +26,12 @@ class Medication extends Model implements MedicationCreationArrtibutes {
           primaryKey: true,
         },
         name: {
-          type: DataTypes.TEXT,
-          // unique: true,
+          type: DataTypes.STRING,
+          unique: true,
           allowNull: false,
         },
         weight: {
-          type: DataTypes.TEXT,
+          type: DataTypes.STRING,
           allowNull: false,
         },
         code: {

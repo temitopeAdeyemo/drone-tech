@@ -1,20 +1,12 @@
 import { Router } from 'express';
-import {
-  uploadMedData,
-  // downloadVersion, getVersion, getVersions
-} from '../controllers';
+import { uploadMedData, getMedication, getMedications } from '../controllers';
 
-import { medDataValidator, getMedsValidators, getVersionValidator } from '../validators';
+import { medDataValidator, getMedsValidator, getMedsValidators } from '../validators';
 const router = Router();
 
-router.post(
-  '/',
-  medDataValidator,
-  uploadMedData.upload
-);
+router.post('/', medDataValidator, uploadMedData.upload);
 
-// router.get('/', getVersionValidator, getVersion.upload.bind(getVersion));
-// router.post('/download', downloadAppValidator, downloadVersion.upload.bind(downloadVersion));
-// router.get('/all', getVersionsValidators, getVersions.upload.bind(getVersions));
+router.get('/', getMedsValidator, getMedication.fetch);
+router.get('/all', getMedsValidators, getMedications.fetch);
 
-// export default router;
+export default router;

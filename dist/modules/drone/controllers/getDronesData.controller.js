@@ -11,8 +11,8 @@ class GetDrone {
             weight,
             battery_capacity,
             state,
-        }, 'get_one');
-        const successResponse = AppSuccess_1.jsonResponse.build(201, 'Drone data fetched successfully.', response);
+        }, 'get_all');
+        const successResponse = AppSuccess_1.jsonResponse.build(201, 'All drones data fetched successfully.', response);
         next(successResponse);
     }
 }

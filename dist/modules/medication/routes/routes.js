@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const validators_1 = require("../validators");
+const router = (0, express_1.Router)();
+router.post('/', validators_1.medDataValidator, controllers_1.uploadMedData.upload);
+// router.get('/', getVersionValidator, getVersion.upload.bind(getVersion));
+// router.post('/download', downloadAppValidator, downloadVersion.upload.bind(downloadVersion));
+// router.get('/all', getVersionsValidators, getVersions.upload.bind(getVersions));
+// export default router;

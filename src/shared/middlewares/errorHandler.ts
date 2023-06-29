@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { CelebrateError } from 'celebrate';
-import { TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken';
 import { AxiosError, isAxiosError } from 'axios';
 import AppError from '../utils/AppError';
 import { MulterError } from 'multer';
@@ -49,22 +48,6 @@ export default function errorHandler(error: Error, request: Request, response: R
     return response.status(400).json({
       success: false,
       message: error.message || 'Unexpected error.',
-      data: null,
-    });
-  }
-
-  if (error instanceof TokenExpiredError) {
-    return response.status(401).json({
-      success: false,
-      message: 'Token expired',
-      data: null,
-    });
-  }
-
-  if (error instanceof JsonWebTokenError) {
-    return response.status(401).json({
-      success: false,
-      message: 'Token invalid',
       data: null,
     });
   }

@@ -1,29 +1,17 @@
-import { DataSource } from 'typeorm';
-import configs from './environments.config';
-
-const AppDataSource = new DataSource({
-  type: 'postgres',
-  host: configs.dbHost,
-  // url: configs.dbUrl,
-  port: Number(configs.dbPort),
-  username: configs.dbUserName,
-  password: configs.dbPassword,
-  database: configs.database,
-  synchronize: false,
-  logging: true,
-  migrationsRun: true,
-  entities: ['./src/modules/**/models/entities/*.ts'],
-  migrations: ['./src/shared/migrations/*.ts'],
-  applicationName: configs.databaseAppName,
-});
-
-(async () => {
-  try {
-    await AppDataSource.initialize();
-    console.log('Connected to database');
-  } catch (err: any) {
-    console.error('Something went wrong when connecting to the database:\n', err.stack);
-  }
-})();
-
-export default AppDataSource;
+export const dbKeys = {
+  port: process.env.PORT || 8000,
+  dbHost: process.env.DB_HOST || 'localhost',
+  dbService: process.env.DB_SERVICE || 'johndoe',
+  dbUserName: 'root',
+  dbPassword: 'Fammieyjuliey12@#',
+  dbPort: Number(process.env.DB_PORT) || 5432,
+  dbSync: process.env.DB_SYNC == 'true',
+  dbName: process.env.DB_SERVICE || 'mysql',
+  dbSslModeRequire: process.env.DB_SSL_MODE_REQUIRE == 'true',
+  dbDialect: process.env.DB_DIALECT || 'mysql2',
+  dbSchema: process.env.DB_SCHEMA || 'public',
+  dbMaxPoolSize: Number(process.env.MAX_DB_POOL_SIZE) || 30,
+  dbPoolAcquireTimeout: Number(process.env.DB_ACQUIRE_TIMEOUT) || 60000,
+  dbPoolIdleConnectionTime: Number(process.env.DB_POOL_IDLE_CONNECTION_TIME) || 30000,
+  dbLogging: process.env.DB_LOGGING === 'true',
+};

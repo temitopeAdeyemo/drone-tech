@@ -13,14 +13,15 @@ import JsonResponse from '../../src/shared/utils/AppSuccess';
 import { morganMiddleware, systemLogs } from '../../src/shared/utils/Logger';
 import chalk from 'chalk';
 import fileUpload from 'express-fileupload';
+import SequelizeConnection from './database/index';
+import { db } from './database/models';
 
 export default class App {
   app: express.Application;
   constructor() {
     this.app = express();
-    require('../config/database.config');
     require('../shared/services/Redis');
-
+    this.syncDb();
     this.app.use(morganConfig);
     this.app.use(morganMiddleware);
     this.app.use(cors);
@@ -31,7 +32,6 @@ export default class App {
     this.app.use(express.json());
     this.app.use(rateLimiter);
     this.app.use(express.static('public'));
-    this.createSuperAdmin();
     this.setRoutes();
 
     this.app.use((response: any, req: Request, res: Response, next: NextFunction) => {
@@ -51,17 +51,28 @@ export default class App {
     });
   }
 
-  async createSuperAdmin() {}
-
   setRoutes() {
     this.app.get('/', (request: Request, response: Response) => {
       response.status(200).json({
         success: true,
-        message: 'Welcome To Itex Store!',
+        message: 'Welcome To Drone Tech!',
       });
     });
 
     this.app.use('/api/v1', routes);
+  }
+
+  async syncDb() {
+    console.log("synchron");
+    
+    await SequelizeConnection.connect();
+    console.log("synchron......");
+    
+    // once connection is authenticated, sequelize will sync the database models
+    // force flag is used to drop the database and create the database again
+    db.sequelize.sync({
+      force: true,
+    });
   }
 
   getApp() {

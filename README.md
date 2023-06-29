@@ -43,6 +43,10 @@ npm install
 npm run migration:generate && migration:up
 ```
 
+## Run MySql docker Container
+
+`docker run --name mysql -e MYSQL_ROOT_PASSWORD=Fammieyjuliey12@# -d mysql:latest`
+
 ## Start the Application (Dev mode)
 
 ```bash
@@ -71,7 +75,7 @@ curl http://localhost:3000/
 3. Checking loaded medication items for a given drone.
 4. Checking available drones for loading.
 5. Checking drone battery level for a given drone.
-6. Preventing drone from being loaded with more weight that it can carry;
-7. Preventing drone from being in LOADING state if the battery level is **below 25%**;
+6. Preventing drone from being loaded with more weight that it can carry.
+7. Preventing drone from being in LOADING state if the battery level is **below 25%.**
 8. Periodic task to check drones battery levels and create history/audit event log for
    this.

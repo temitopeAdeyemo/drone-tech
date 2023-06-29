@@ -1,4 +1,4 @@
-import Version from '@modules/version/models/entities/Version';
+import Version from '@modules/medication/models/entities/Medication';
 
 export const generateReferralId = () => {
   const length = 8;

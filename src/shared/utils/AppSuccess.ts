@@ -1,4 +1,4 @@
-import { IBaseResponse } from '../../modules/user/services/BaseService';
+
 class JsonResponse {
   statusCode: number;
   data: object | null;

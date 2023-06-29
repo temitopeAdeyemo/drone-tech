@@ -1,5 +1,4 @@
-import CreateVersionService from './CreateVersionService';
-import GetAppService from './GetVersion';
-import DownloadVersionService from './DownloadVersionService';
+import CreateMedService from './CreateMedService';
+import GetMedService from './GetMedService';
 
-export { CreateVersionService, GetAppService, DownloadVersionService };
+export { CreateMedService, GetMedService };

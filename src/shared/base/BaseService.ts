@@ -4,7 +4,6 @@ import fileSys from '../../shared/Helpers/FsHelper';
 import path from 'path';
 
 export type IBaseResponse = null | void | object;
-export type CredentialTypes = 'email' | 'phone_number';
 
 export interface IBaseService {
   execute: (args: any) => Promise<IBaseResponse>;

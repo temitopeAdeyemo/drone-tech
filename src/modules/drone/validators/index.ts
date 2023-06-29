@@ -1,4 +1,4 @@
-import uploadAppValidator from './uploadAppValidator';
-import getAppValidator from './getAppValidator';
+import droneDataValidator from './droneDataValidator';
+import getDroneValidator from './getDroneValidator';
 
-export { uploadAppValidator, getAppValidator };
+export { droneDataValidator, getDroneValidator };

@@ -8,13 +8,15 @@ import 'express-async-errors';
 import environment from '../../src/config/environments.config';
 import errorHandler from '../../src/shared/middlewares/errorHandler';
 import rateLimiter from '../../src/shared/middlewares/rateLimiter';
-import routes from '../../src/shared/routes';
+// import routes from '../../src/shared/routes';
 import JsonResponse from '../../src/shared/utils/AppSuccess';
 import { morganMiddleware, systemLogs } from '../../src/shared/utils/Logger';
 import chalk from 'chalk';
 import fileUpload from 'express-fileupload';
 import SequelizeConnection from './database/index';
-import { db } from './database/models';
+import connection from './database/index';
+import { db } from './database/base';
+import { where } from 'sequelize';
 
 export default class App {
   app: express.Application;
@@ -22,6 +24,7 @@ export default class App {
     this.app = express();
     require('../shared/services/Redis');
     this.syncDb();
+    // connection.sync({force: false});
     this.app.use(morganConfig);
     this.app.use(morganMiddleware);
     this.app.use(cors);
@@ -49,6 +52,10 @@ export default class App {
         message: 'Endpoint not found.',
       });
     });
+    process.on('SIGINT', () => {
+      SequelizeConnection.close();
+      process.exit();
+    });
   }
 
   setRoutes() {
@@ -59,20 +66,20 @@ export default class App {
       });
     });
 
-    this.app.use('/api/v1', routes);
+    // this.app.use('/api/v1', routes);
   }
 
   async syncDb() {
-    console.log("synchron");
-    
     await SequelizeConnection.connect();
-    console.log("synchron......");
-    
-    // once connection is authenticated, sequelize will sync the database models
-    // force flag is used to drop the database and create the database again
-    db.sequelize.sync({
-      force: true,
-    });
+
+    await db.sequelize
+      .sync({ force: false, logging: console.log })
+      .then(() => {
+        console.log('Database synced successfully.');
+      })
+      .catch((err) => {
+        console.log('Database not synced successfully.', err);
+      });
   }
 
   getApp() {

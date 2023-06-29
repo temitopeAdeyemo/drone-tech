@@ -1,10 +1,10 @@
 import { Model, Sequelize, DataTypes } from 'sequelize';
 import IMedicationDTO from '../../dtos/IMedicationDTO';
-import DroneDetails from "../../../drone/models/entities/Drone"
+import DroneDetails from '../../../drone/models/entities/Drone';
 
-// export type UserDetailsCreationArrtibutes = IMedicationDTO;
+export type MedicationCreationArrtibutes = IMedicationDTO;
 
-class Medication extends Model implements IMedicationDTO {
+class Medication extends Model implements MedicationCreationArrtibutes {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
   public name!: string;
   public weight!: string;
@@ -27,7 +27,7 @@ class Medication extends Model implements IMedicationDTO {
         },
         name: {
           type: DataTypes.TEXT,
-          unique: true,
+          // unique: true,
           allowNull: false,
         },
         weight: {
@@ -46,7 +46,7 @@ class Medication extends Model implements IMedicationDTO {
       {
         sequelize,
         underscored: true,
-        tableName: 'MedicationDetails',
+        tableName: 'Medication',
       }
     );
   }

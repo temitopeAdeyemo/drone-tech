@@ -1,6 +1,5 @@
-import uploadAppValidator from './uploadAppValidator';
-import downloadAppValidator from './downloadAppValidator';
-import getVersionsValidators from './getVersionsValidators';
-import getVersionValidator from './getVersionValidator';
+import medDataValidator from './medDataValidator';
+import getMedsValidators from './getMedsValidators';
+import getVersionValidator from './getMedsValidators';
 
-export { uploadAppValidator, downloadAppValidator, getVersionsValidators, getVersionValidator };
+export { medDataValidator, getMedsValidators, getVersionValidator };

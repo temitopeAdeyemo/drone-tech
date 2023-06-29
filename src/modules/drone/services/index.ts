@@ -1,5 +1,7 @@
-import CreateApplicationService from './CreateApplicationService';
-import GetAppService from './GetApplication';
-import DownloadAppService from './DownloadAppService';
+import UploadDroneService from './UploadDroneService';
+import GetDroneService from './GetDroneService';
 
-export { CreateApplicationService, GetAppService, DownloadAppService };
+export {
+  UploadDroneService,
+  GetDroneService,
+};

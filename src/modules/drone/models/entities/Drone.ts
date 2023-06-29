@@ -1,8 +1,9 @@
 import { Model, Sequelize, DataTypes } from 'sequelize';
-import { IDroneDTO as DroneDetailsAttributes } from '../../dtos/IDroneDTO';
+import IDroneDTO from '../../dtos/IDroneDTO';
 import MedicationDetails from '../../../medication/models/entities/Medication';
 
-class Drone extends Model implements DroneDetailsAttributes {
+export type DroneCreationArrtibutes = IDroneDTO;
+class Drone extends Model implements DroneCreationArrtibutes {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
   public serial_number!: string;
   public model!: string;
@@ -10,7 +11,6 @@ class Drone extends Model implements DroneDetailsAttributes {
   public battery_capacity!: string;
   public state!: string;
 
-  // timestamps!
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
@@ -26,7 +26,7 @@ class Drone extends Model implements DroneDetailsAttributes {
         },
         serial_number: {
           type: DataTypes.TEXT,
-          unique: true,
+          // unique: true,
           allowNull: false,
         },
         model: {
@@ -43,7 +43,7 @@ class Drone extends Model implements DroneDetailsAttributes {
         },
         battery_capacity: {
           type: DataTypes.STRING,
-          allowNull: false,
+          // allowNull: false,
         },
         state: {
           type: DataTypes.STRING,
@@ -53,7 +53,7 @@ class Drone extends Model implements DroneDetailsAttributes {
       {
         sequelize,
         underscored: true,
-        tableName: 'DroneDetails',
+        tableName: 'Drone',
       }
     );
   }

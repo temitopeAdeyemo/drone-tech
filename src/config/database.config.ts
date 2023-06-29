@@ -1,14 +1,15 @@
-export const dbKeys = {
+const dotenv = require('dotenv').config();
+export const vars = {
   port: process.env.PORT || 8000,
-  dbHost: process.env.DB_HOST || 'localhost',
+  dbHost: process.env.DB_HOST || '127.0.0.1',
   dbService: process.env.DB_SERVICE || 'johndoe',
   dbUserName: 'root',
   dbPassword: 'Fammieyjuliey12@#',
-  dbPort: Number(process.env.DB_PORT) || 5432,
+  dbPort: Number(process.env.DB_PORT) || 3306,
   dbSync: process.env.DB_SYNC == 'true',
-  dbName: process.env.DB_SERVICE || 'mysql',
+  dbName: process.env.DB_SERVICE || 'my_database',
   dbSslModeRequire: process.env.DB_SSL_MODE_REQUIRE == 'true',
-  dbDialect: process.env.DB_DIALECT || 'mysql2',
+  dbDialect: process.env.DB_DIALECT || 'mysql',
   dbSchema: process.env.DB_SCHEMA || 'public',
   dbMaxPoolSize: Number(process.env.MAX_DB_POOL_SIZE) || 30,
   dbPoolAcquireTimeout: Number(process.env.DB_ACQUIRE_TIMEOUT) || 60000,

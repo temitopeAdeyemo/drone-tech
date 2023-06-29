@@ -1,4 +1,4 @@
-export interface IDroneDTO {
+export default interface IDroneDTO {
   serial_number: string;
   model: string;
   weight: string;

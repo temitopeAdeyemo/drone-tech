@@ -1,53 +1,50 @@
 import { Dialect, Options, Sequelize } from 'sequelize';
-import { dbKeys } from '../../config/database.config';
+import { vars } from '../../config/database.config';
 class SequelizeConnection {
   private static instance: Sequelize;
 
   static getInstance(): Sequelize {
     if (!SequelizeConnection.instance) {
       const dbConfig = {} as Options;
-      dbConfig.port = dbKeys.dbPort;
-      dbConfig.host = dbKeys.dbHost;
-      dbConfig.ssl = dbKeys.dbSslModeRequire;
-      dbConfig.database = dbKeys.dbName;
-      dbConfig.username = dbKeys.dbUserName;
-      dbConfig.password = dbKeys.dbPassword;
+      dbConfig.port = vars.dbPort;
+      dbConfig.host = vars.dbHost;
+      // dbConfig.ssl = vars.dbSslModeRequire;
+      dbConfig.database = vars.dbName;
+      dbConfig.username = vars.dbUserName;
+      dbConfig.password = vars.dbPassword;
       dbConfig.logging = false;
-      dbConfig.dialect = dbKeys.dbDialect as Dialect;
-      dbConfig.logging = dbKeys.dbLogging;
+      dbConfig.dialect = vars.dbDialect as Dialect;
+      dbConfig.logging = vars.dbLogging;
       dbConfig.define = {
-        schema: dbKeys.dbSchema,
+        schema: vars.dbSchema,
       };
       dbConfig.pool = {
-        max: dbKeys.dbMaxPoolSize,
-        acquire: dbKeys.dbPoolAcquireTimeout,
-        idle: dbKeys.dbPoolIdleConnectionTime,
+        max: vars.dbMaxPoolSize,
+        acquire: vars.dbPoolAcquireTimeout,
+        idle: vars.dbPoolIdleConnectionTime,
       };
-      if (dbKeys.dbSslModeRequire) {
+      if (vars.dbSslModeRequire) {
         dbConfig.dialectOptions = {
           ssl: {
-            require: dbKeys.dbSslModeRequire,
+            require: vars.dbSslModeRequire,
             rejectUnauthorized: false,
           },
         };
       }
-      SequelizeConnection.instance = new Sequelize('mysql://localhost:3306', dbConfig);
+      SequelizeConnection.instance = new Sequelize( dbConfig);
     }
-    console.log('here is');
 
     return SequelizeConnection.instance;
   }
 
   static async connect(): Promise<Sequelize> {
-    const sequelize = this.getInstance();
+    const sequelize = SequelizeConnection.getInstance();
     try {
-      console.log('HERE');
-
       await sequelize.authenticate();
-      console.log('Database connection established successfully');
+      console.log('Database connection authenticated successfully');
       return sequelize;
-    } catch (err: any) {
-      console.log('Error while creation connection to database :: ' + err.message);
+    } catch (ex: any) {
+      console.log('Error while creation connection to database :: ' + ex.message);
       return sequelize;
     }
   }
@@ -58,8 +55,8 @@ class SequelizeConnection {
       await sequelize.close();
       console.log('Database connection closed successfully');
       return sequelize;
-    } catch (err: any) {
-      console.log('Error while closing database connection :: ' + err.message);
+    } catch (ex: any) {
+      console.log('Error while closing database connection :: ' + ex.message);
       return sequelize;
     }
   }

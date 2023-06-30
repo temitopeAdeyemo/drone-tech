@@ -24,6 +24,14 @@ and capable of delivering small loads. For our use case **the load is medication
 8. Periodic task to check drones battery levels and create history/audit event log for
    this.
 
+### NOTE: 
+
+To run the app locally by passing valid MySQL credentials to the `database.config.ts` file, you can follow these steps:
+
+1. Locate the `database.config.ts` file in your project directory. Typically, this file contains the configuration settings for connecting to your MySQL database.
+2. Open the `database.config.ts` file and look for the fields related to database credentials. These fields might include `dbPassword`, `dbName`, `dbUserName`. Adjust the file according to your project's structure.
+3. Replace the placeholders or empty values with your actual MySQL credentials.
+
 ## Technologies
 
 The following technologies are being used in this project:
@@ -34,7 +42,7 @@ The following technologies are being used in this project:
 - MySql
 - Sequelise
 - redis
-- [joi](- https://github.com/hapijs/joi)
+- [HapiJoi](https://github.com/hapijs/joi)
 
 ## Requirements
 

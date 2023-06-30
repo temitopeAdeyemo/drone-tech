@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Drone_1 = __importDefault(require("../../../../modules/drone/models/entities/Drone"));
-const base_1 = require("../../../../shared/database/base");
+const database_1 = require("../../../../shared/database");
 class MedicationRepository {
     constructor() {
-        this.ormRepository = base_1.db.Medication;
+        this.ormRepository = database_1.db.Medication;
     }
     async findAll(data) {
         return await this.ormRepository.findAll({

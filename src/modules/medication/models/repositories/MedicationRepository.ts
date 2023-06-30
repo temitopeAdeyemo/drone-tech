@@ -1,5 +1,5 @@
 import Drone from '../../../../modules/drone/models/entities/Drone';
-import { db } from '../../../../shared/database/base';
+import { db } from '../../../../shared/database';
 import IGetMedicationFilterDTO from '../../dtos/IGetMedicationFilterDTO';
 import IMedicationDTO from '../../dtos/IMedicationDTO';
 import { MedicationCreationArrtibutes } from '../entities/Medication';

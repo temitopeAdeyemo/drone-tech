@@ -1,4 +1,4 @@
-import { db } from '../../../../shared/database/base';
+import { db } from '../../../../shared/database';
 import IGetDroneFilterDTO from '../../dtos/IGetDroneFilterDTO';
 import Drone, { DroneCreationArrtibutes } from '../entities/Drone';
 import Medication from '../../../../modules/medication/models/entities/Medication';
@@ -9,14 +9,8 @@ class DronenRepository {
   private ormRepository = Drone;
 
   async getAll(data: IGetDroneFilterDTO) {
-  return await this.ormRepository.findAll({
+    return await this.ormRepository.findAll({
       where: { ...data },
-      // include: [
-      //   {
-      //     model: Medication,
-      //     as: 'Medications',
-      //   },
-      // ],
     });
   }
 
@@ -73,7 +67,7 @@ class DronenRepository {
     return await db.Drone.update(data, { where: { ...condition } });
   }
 
-  async updateMany(data: any[]) {
+  async createMany(data: any[]) {
     return await db.Drone.bulkCreate(data, { updateOnDuplicate: ['battery_capacity'] });
   }
 }

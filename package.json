@@ -6,7 +6,7 @@
   "author": "temitopeAdeyemo <temitopejulius9@gmail.com>",
   "scripts": {
     "dev": "nodemon src/shared/server.ts",
-    "start:dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/shared/server.ts",
+    "watch": "NODE_ENV=development ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/shared/server.ts",
     "migration:generate": "",
     "migration:up": "npx sequelize-cli db:migrate --migrations-path src/shared/database/migrations --config src/config/sequelise-config.json",
     "migration:down": ""

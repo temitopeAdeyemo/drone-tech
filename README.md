@@ -2,7 +2,27 @@
 
 ## Description
 
-This is a RESTful API for The Drone.
+There is a major new technology that is destined to be a disruptive force in the field of
+transportation: **the drone**. Just as the mobile phone allowed developing countries to leapfrog
+older technologies for personal communication, the drone has the potential to leapfrog
+traditional transportation infrastructure.
+Useful drone functions include delivery of small items that are (urgently) needed in locations
+with difficult access.
+
+We have a fleet of **10 drones**. A drone is capable of carrying devices, other than cameras,
+and capable of delivering small loads. For our use case **the load is medications**.
+
+## Key Features (At the time)
+
+1. Registering a drone.
+2. Loading a drone with medication items.
+3. Checking loaded medication items for a given drone.
+4. Checking available drones for loading.
+5. Checking drone battery level for a given drone.
+6. Preventing drone from being loaded with more weight that it can carry.
+7. Preventing drone from being in LOADING state if the battery level is **below 25%.**
+8. Periodic task to check drones battery levels and create history/audit event log for
+   this.
 
 ## Technologies
 
@@ -15,12 +35,6 @@ The following technologies are being used in this project:
 - Sequelise
 - redis
 - [joi](- https://github.com/hapijs/joi)
-
-The following technologies will be be used in this project:
-
-- [Docker](https://www.docker.com//)
-- [Docker Compose](https://docs.docker.com/compose/)
-- [Jest](https://www.postgres.com/)
 
 ## Requirements
 
@@ -49,9 +63,7 @@ npm run migration:generate && migration:up
 
 ## Start the Application (Dev mode)
 
-```bash
 npm run watch
-```
 
 ## Revert migrations
 
@@ -68,14 +80,6 @@ npm run migration:up
 curl http://localhost:3000/
 ```
 
-## Key Features (At the time)
+Click the link below to see the postman Documentation.
 
-1. Registering a drone.
-2. Loading a drone with medication items.
-3. Checking loaded medication items for a given drone.
-4. Checking available drones for loading.
-5. Checking drone battery level for a given drone.
-6. Preventing drone from being loaded with more weight that it can carry.
-7. Preventing drone from being in LOADING state if the battery level is **below 25%.**
-8. Periodic task to check drones battery levels and create history/audit event log for
-   this.
+[Postman API Documentation](https://documenter.getpostman.com/view/19330071/2s93zB62ef "Postman Documentation")

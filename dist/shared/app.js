@@ -17,9 +17,10 @@ const AppSuccess_1 = __importDefault(require("../../src/shared/utils/AppSuccess"
 const Logger_1 = require("../../src/shared/utils/Logger");
 const chalk_1 = __importDefault(require("chalk"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
-const index_1 = __importDefault(require("./database/index"));
-const base_1 = require("./database/base");
+const connection_1 = __importDefault(require("./database/connection"));
+const database_1 = require("./database");
 const batteryManager_controller_1 = __importDefault(require("../modules/drone/controllers/batteryManager.controller"));
+const seedings_1 = require("../shared/database/seedings");
 class App {
     constructor() {
         this.app = (0, express_1.default)();
@@ -51,7 +52,7 @@ class App {
             });
         });
         process.on('SIGINT', () => {
-            index_1.default.close();
+            connection_1.default.close();
             process.exit();
         });
     }
@@ -65,14 +66,25 @@ class App {
         this.app.use('/api/v1', routes_1.default);
     }
     async syncDb() {
-        await index_1.default.connect();
-        base_1.db.sequelize
-            .sync({ force: false })
+        await connection_1.default.connect();
+        database_1.db.sequelize
+            .query('SET FOREIGN_KEY_CHECKS = 0')
             .then(() => {
-            console.log('Database synced successfully.');
+            database_1.db.sequelize
+                .sync({ force: true, logging: console.log })
+                .then(() => {
+                console.log('Database synced successfully.');
+                (0, seedings_1.seed)();
+            })
+                .then(() => {
+                database_1.db.sequelize.sync({ force: false, logging: console.log });
+            })
+                .catch((err) => {
+                console.log('Database not synced successfully.', err);
+            });
         })
             .catch((err) => {
-            console.log('ERR_,', err);
+            console.log(err);
         });
     }
     getApp() {

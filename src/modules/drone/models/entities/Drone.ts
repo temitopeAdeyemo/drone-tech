@@ -4,13 +4,13 @@ import Medication from '../../../medication/models/entities/Medication';
 
 export type DroneCreationArrtibutes = IDroneDTO;
 class Drone extends Model implements DroneCreationArrtibutes {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  public id!: number;
   public serial_number!: string;
   public model!: string;
   public weight!: string;
   public battery_capacity!: string;
   public state!: string;
-  public medication_ids!: string[];
+  public load_weight!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -47,18 +47,16 @@ class Drone extends Model implements DroneCreationArrtibutes {
           defaultValue: '100',
           allowNull: false,
         },
+        load_weight: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          defaultValue: '0',
+        },
         state: {
           type: DataTypes.STRING,
           allowNull: false,
           values: ['IDLE', 'LOADING', 'LOADED', 'DELIVERING', 'DELIVERED', 'RETURNING'],
           defaultValue: 'IDLE',
-        },
-        medication_carried: {
-          type: DataTypes.ARRAY(DataTypes.STRING),
-          // references: {
-          //   model: Medication,
-          //   key: 'id',
-          // },
         },
       },
       {
@@ -69,9 +67,9 @@ class Drone extends Model implements DroneCreationArrtibutes {
     );
   }
 
- public static associateModel(): void {
-    Drone.hasMany(Medication,);
+  public static associateModel(): void {
+    Drone.hasMany(Medication, { foreignKey: 'drone_id' });
   }
 }
 
-export default Drone ;
+export default Drone;

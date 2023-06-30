@@ -22,6 +22,30 @@ class DronenRepository {
             ],
         });
     }
+    async getWorkingDrones(data) {
+        return await this.ormRepository.findAll({
+            where: { ...{ ...data, state: { [sequelize_1.Op.ne]: 'IDLE' } } },
+            include: [
+                {
+                    model: Medication_1.default,
+                    as: 'Medications',
+                },
+            ],
+            attributes: ['id', 'serial_number'],
+        });
+    }
+    async getWorkingDrone(data) {
+        return await this.ormRepository.findOne({
+            where: { ...{ ...data, state: { [sequelize_1.Op.ne]: 'IDLE' } } },
+            include: [
+                {
+                    model: Medication_1.default,
+                    as: 'Medications',
+                },
+            ],
+            attributes: ['id', 'serial_number'],
+        });
+    }
     async retrieveBatteryLevel(data) {
         return await this.ormRepository.findAll({
             where: { ...data },
@@ -41,11 +65,8 @@ class DronenRepository {
             where: { ...data },
         });
     }
-    async update(updateData, data) {
-        return await base_1.db.Drone.update(data, { where: { ...updateData } });
-    }
-    async updateMedIds(medId, condition) {
-        return await base_1.db.Drone.update({ library: sequelize_1.Sequelize.fn('array_append', sequelize_1.Sequelize.col('library'), medId) }, { where: { ...condition } });
+    async update(data, condition) {
+        return await base_1.db.Drone.update(data, { where: { ...condition } });
     }
 }
 exports.default = DronenRepository;

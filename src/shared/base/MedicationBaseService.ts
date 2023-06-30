@@ -4,6 +4,7 @@ import DronenRepository from '../../modules/drone/models/repositories/DroneRepos
 import IMedicationDTO from '../../modules/medication/dtos/IMedicationDTO';
 import BaseService from './BaseService';
 import AppError from '../../shared/utils/AppError';
+import MedicationRepository from '../../modules/medication/models/repositories/MedicationRepository';
 
 export type IBaseResponse = null | void | object;
 
@@ -11,4 +12,8 @@ export interface IBaseService {
   execute: (args: any, args2?: any) => Promise<IBaseResponse>;
 }
 
-export default abstract class MedicationBaseService extends BaseService {}
+export default abstract class MedicationBaseService extends BaseService {
+  protected medicationRepository = new MedicationRepository();
+
+  
+}

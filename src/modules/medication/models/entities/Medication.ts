@@ -60,7 +60,7 @@ class Medication extends Model implements MedicationCreationArrtibutes {
   }
 
   static associateModel(): void {
-    Medication.belongsTo(DroneDetails, { foreignKey: 'drone_id', as: 'Drone' });
+    Medication.belongsTo(DroneDetails, { foreignKey: 'drone_id' });
   }
 }
 

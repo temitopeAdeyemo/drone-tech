@@ -12,7 +12,7 @@ export interface IBaseService {
 }
 
 export default abstract class DroneBaseService extends BaseService {
-  protected droneRepository = new DronenRepository();
+  // protected droneRepository = new DronenRepository();
 
   protected async throwErrIfExists(data: 'serial_number', value: string) {
     let filter: IGetDroneFilterDTO = {};

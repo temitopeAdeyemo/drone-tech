@@ -11,21 +11,26 @@ class MedicationRepository {
     }
     async findAll(data) {
         return await this.ormRepository.findAll({
-            where: { ...data }, include: [{
-                    model: Drone_1.default, as: 'Drone'
-                }]
+            where: { ...data },
+            include: [
+                {
+                    model: Drone_1.default,
+                },
+            ],
         });
     }
     async findOne(data) {
         return await this.ormRepository.findOne({
             where: { ...data },
-            include: [{
-                    model: Drone_1.default, as: 'Drone'
-                }]
+            include: [
+                {
+                    model: Drone_1.default,
+                    as: 'Drone',
+                },
+            ],
         });
     }
     async create(data) {
-        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         return await this.ormRepository.create({ ...data });
     }
     async update(updateData, data) {

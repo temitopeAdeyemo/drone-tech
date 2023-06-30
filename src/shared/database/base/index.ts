@@ -4,11 +4,9 @@ import Medication from '../../../modules/medication/models/entities/Medication';
 
 const sequelize = SequelizeConnection.getInstance();
 
-// init models
 Drone.initModel(sequelize);
 Medication.initModel(sequelize);
 
-// associate models
 Drone.associateModel();
 Medication.associateModel();
 

@@ -68,24 +68,13 @@ export default class App {
 
   async syncDb() {
     await SequelizeConnection.connect();
-
-    // db.sequelize
-    //   .query('SET FOREIGN_KEY_CHECKS = 0')
-    //   .then(() => {
-        db.sequelize
-          .sync({ force: false, logging: console.log })
-          .then(() => {
-            console.log('Database synced successfully.');
-          })
-      //     .then(() => {
-      //       db.sequelize.sync({ force: true, logging: console.log });
-      //     })
-      //     .catch((err) => {
-      //       console.log('Database not synced successfully.', err);
-      //     });
-      // })
+    db.sequelize
+      .sync({ force: false, logging: console.log })
+      .then(() => {
+        console.log('Database synced successfully.');
+      })
       .catch((err) => {
-        console.log('%%%%%%%%,', err);
+        console.log('ERR_,', err);
       });
   }
 

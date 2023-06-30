@@ -1,14 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_1 = require("../../../shared/base");
-const MedicationRepository_1 = __importDefault(require("../models/repositories/MedicationRepository"));
-class CreateMedService extends base_1.DroneBaseService {
+class CreateMedService extends base_1.MedicationBaseService {
     async execute(data) {
-        const med = new MedicationRepository_1.default();
-        const medication = await med.create(data);
+        const drone = await this.errIfNotDrone(data.drone_id);
+        const sumWeight = this.errIfWeightOverload(drone.toJSON(), data.weight);
+        const updateData = { state: "LOADED", load_weight: sumWeight };
+        this.updateDroneData(data.drone_id, updateData);
+        await this.medicationRepository.create(data);
         return;
     }
 }

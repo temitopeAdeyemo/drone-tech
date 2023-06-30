@@ -8,7 +8,6 @@ exports.default = (0, celebrate_1.celebrate)({
         battery_capacity: celebrate_1.Joi.string()
             .pattern(/^(?:[0-9]|[1-9][0-9]|100)$/)
             .message('Battery capacity can only be string of numbers with with a max of 100'),
-        state: celebrate_1.Joi.string().valid(...allowedStates),
         serial_number: celebrate_1.Joi.string()
             .min(10, 'utf8')
             .max(100, 'utf8')

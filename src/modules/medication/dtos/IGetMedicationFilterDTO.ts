@@ -4,4 +4,5 @@ export default interface IGetMedicationFilterDTO {
   weight?: string;
   code?: string;
   image?: string;
+  drone_id?: string;
 }

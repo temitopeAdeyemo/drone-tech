@@ -13,6 +13,7 @@ class GetMedication {
         weight,
         code,
         image,
+        
       },
       'get_many'
     );

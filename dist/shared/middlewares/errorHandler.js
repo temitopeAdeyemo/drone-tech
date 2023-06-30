@@ -42,7 +42,6 @@ function errorHandler(error, request, response, _) {
             data: null,
         });
     }
-    const sequeliseError = [sequelize_1.BaseError, sequelize_1.QueryError, sequelize_1.ValidationError];
     if (error instanceof sequelize_1.BaseError || error instanceof sequelize_1.QueryError || error instanceof sequelize_1.ValidationError) {
         return response.status(400).json({
             success: false,

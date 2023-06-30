@@ -5,5 +5,5 @@ export default interface IGetDroneFilterDTO {
   weight?: string;
   battery_capacity?: string;
   state?: string;
-  medication_ids?: string[];
+  load_weight?: string;
 }

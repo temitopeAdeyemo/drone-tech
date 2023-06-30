@@ -9,24 +9,28 @@ class MedicationRepository {
 
   async findAll(data: IGetMedicationFilterDTO) {
     return await this.ormRepository.findAll({
-      where: { ...data },      include: [{
-        model: Drone, as: 'Drone'
-      }] 
+      where: { ...data },
+      include: [
+        {
+          model: Drone,
+        },
+      ],
     });
   }
 
   async findOne(data: IGetMedicationFilterDTO) {
     return await this.ormRepository.findOne({
       where: { ...data },
-      include: [{
-        model: Drone, as: 'Drone'
-      }] 
-    },);
+      include: [
+        {
+          model: Drone,
+          as: 'Drone',
+        },
+      ],
+    });
   }
 
   async create(data: MedicationCreationArrtibutes) {
-    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-    
     return await this.ormRepository.create({ ...data });
   }
 

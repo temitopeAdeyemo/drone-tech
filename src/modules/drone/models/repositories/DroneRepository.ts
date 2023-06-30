@@ -1,9 +1,8 @@
 import { db } from '../../../../shared/database/base';
 import IGetDroneFilterDTO from '@modules/drone/dtos/IGetDroneFilterDTO';
-import IDroneDTO from '../../dtos/IDroneDTO';
 import Drone, { DroneCreationArrtibutes } from '../entities/Drone';
 import Medication from '../../../../modules/medication/models/entities/Medication';
-import { Sequelize } from 'sequelize';
+import { Op } from 'sequelize';
 
 class DronenRepository {
   private ormRepository = Drone;
@@ -17,6 +16,32 @@ class DronenRepository {
           as: 'Medications',
         },
       ],
+    });
+  }
+
+  async getWorkingDrones(data: IGetDroneFilterDTO) {
+    return await this.ormRepository.findAll({
+      where: { ...{ ...data, state: { [Op.ne]: 'IDLE' } } },
+      include: [
+        {
+          model: Medication,
+          as: 'Medications',
+        },
+      ],
+      attributes: ['id', 'serial_number'],
+    });
+  }
+
+  async getWorkingDrone(data: IGetDroneFilterDTO) {
+    return await this.ormRepository.findOne({
+      where: { ...{ ...data, state: { [Op.ne]: 'IDLE' } } },
+      include: [
+        {
+          model: Medication,
+          as: 'Medications',
+        },
+      ],
+      attributes: ['id', 'serial_number'],
     });
   }
 
@@ -43,15 +68,8 @@ class DronenRepository {
     });
   }
 
-  async update(updateData: IGetDroneFilterDTO, data: IGetDroneFilterDTO) {
-    return await db.Drone.update(data, { where: { ...updateData } });
-  }
-
-  async updateMedIds(medId: string, condition: IGetDroneFilterDTO) {
-    return await db.Drone.update(
-      { library: Sequelize.fn('array_append', Sequelize.col('library'), medId) },
-      { where: { ...condition } }
-    );
+  async update(data: IGetDroneFilterDTO, condition: IGetDroneFilterDTO) {
+    return await db.Drone.update(data, { where: { ...condition } });
   }
 }
 

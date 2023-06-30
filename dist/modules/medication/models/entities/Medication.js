@@ -44,7 +44,7 @@ class Medication extends sequelize_1.Model {
         });
     }
     static associateModel() {
-        Medication.belongsTo(Drone_1.default, { foreignKey: 'drone_id', as: 'Drone' });
+        Medication.belongsTo(Drone_1.default, { foreignKey: 'drone_id' });
     }
 }
 exports.default = Medication;

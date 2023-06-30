@@ -63,23 +63,13 @@ class App {
     }
     async syncDb() {
         await index_1.default.connect();
-        // db.sequelize
-        //   .query('SET FOREIGN_KEY_CHECKS = 0')
-        //   .then(() => {
         base_1.db.sequelize
             .sync({ force: false, logging: console.log })
             .then(() => {
             console.log('Database synced successfully.');
         })
-            //     .then(() => {
-            //       db.sequelize.sync({ force: true, logging: console.log });
-            //     })
-            //     .catch((err) => {
-            //       console.log('Database not synced successfully.', err);
-            //     });
-            // })
             .catch((err) => {
-            console.log('%%%%%%%%,', err);
+            console.log('ERR_,', err);
         });
     }
     getApp() {

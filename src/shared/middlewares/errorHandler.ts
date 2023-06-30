@@ -44,8 +44,6 @@ export default function errorHandler(error: Error, request: Request, response: R
     });
   }
 
-  const sequeliseError = [BaseError, QueryError, ValidationError];
-
   if (error instanceof BaseError || error instanceof QueryError || error instanceof ValidationError) {
     return response.status(400).json({
       success: false,

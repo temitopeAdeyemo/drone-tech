@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getIdleDrone = exports.getBatteryLevel = exports.getDroneData = exports.getDronesData = exports.createApp = void 0;
+exports.getUnidleDrone = exports.getUnidleDrones = exports.getIdleDrone = exports.getBatteryLevel = exports.getDroneData = exports.getDronesData = exports.createApp = void 0;
 const uploadDrone_controller_1 = __importDefault(require("./uploadDrone.controller"));
 exports.createApp = uploadDrone_controller_1.default;
 const getDronesData_controller_1 = __importDefault(require("./getDronesData.controller"));
@@ -14,3 +14,7 @@ const getBatteryLevel_controller_1 = __importDefault(require("./getBatteryLevel.
 exports.getBatteryLevel = getBatteryLevel_controller_1.default;
 const getIdleDrone_controller_1 = __importDefault(require("./getIdleDrone.controller"));
 exports.getIdleDrone = getIdleDrone_controller_1.default;
+const getUnidleDrones_controller_1 = __importDefault(require("./getUnidleDrones.controller"));
+exports.getUnidleDrones = getUnidleDrones_controller_1.default;
+const getUnidleDrone_controller_1 = __importDefault(require("./getUnidleDrone.controller"));
+exports.getUnidleDrone = getUnidleDrone_controller_1.default;

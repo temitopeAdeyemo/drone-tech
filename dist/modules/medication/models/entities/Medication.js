@@ -30,6 +30,13 @@ class Medication extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.STRING,
                 allowNull: false,
             },
+            drone_id: {
+                type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
+                references: {
+                    model: Drone_1.default,
+                    key: 'id',
+                },
+            },
         }, {
             sequelize,
             underscored: true,
@@ -37,7 +44,7 @@ class Medication extends sequelize_1.Model {
         });
     }
     static associateModel() {
-        Medication.hasMany(Drone_1.default, { foreignKey: 'carrier_id', sourceKey: 'id', as: 'carrier' });
+        Medication.belongsTo(Drone_1.default, { foreignKey: 'drone_id', as: 'Drone' });
     }
 }
 exports.default = Medication;

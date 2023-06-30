@@ -24,6 +24,7 @@ class Drone extends sequelize_1.Model {
             model: {
                 type: sequelize_1.DataTypes.STRING,
                 allowNull: false,
+                values: ['Lightweight', 'Middleweight', 'Cruiserweight', 'Heavyweight'],
             },
             weight: {
                 type: sequelize_1.DataTypes.STRING,
@@ -37,8 +38,15 @@ class Drone extends sequelize_1.Model {
             state: {
                 type: sequelize_1.DataTypes.STRING,
                 allowNull: false,
-                values: ['employee', 'super_admin', 'travel_admin', 'travel_team_manager', 'manager', 'supplier'],
-                defaultValue: 'employee',
+                values: ['IDLE', 'LOADING', 'LOADED', 'DELIVERING', 'DELIVERED', 'RETURNING'],
+                defaultValue: 'IDLE',
+            },
+            medication_carried: {
+                type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.STRING),
+                // references: {
+                //   model: Medication,
+                //   key: 'id',
+                // },
             },
         }, {
             sequelize,
@@ -47,7 +55,7 @@ class Drone extends sequelize_1.Model {
         });
     }
     static associateModel() {
-        Drone.belongsTo(Medication_1.default, { targetKey: 'id', as: 'medicationDetails' });
+        Drone.hasMany(Medication_1.default);
     }
 }
 exports.default = Drone;

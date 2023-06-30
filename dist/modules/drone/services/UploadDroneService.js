@@ -4,6 +4,7 @@ const base_1 = require("../../../shared/base");
 class UploadDroneService extends base_1.DroneBaseService {
     async execute(droneData) {
         await this.throwErrIfExists('serial_number', droneData.serial_number);
+        droneData = this.populateDroneModel(droneData);
         await this.uploadDroneData(droneData);
         return;
     }

@@ -24,7 +24,6 @@ class App {
         this.app = (0, express_1.default)();
         require('../shared/services/Redis');
         this.syncDb();
-        // connection.sync({force: false});
         this.app.use(morganConfig_1.default);
         this.app.use(Logger_1.morganMiddleware);
         this.app.use(corsOptions_1.default);
@@ -64,13 +63,23 @@ class App {
     }
     async syncDb() {
         await index_1.default.connect();
-        await base_1.db.sequelize
-            .sync({ force: true, logging: console.log })
+        // db.sequelize
+        //   .query('SET FOREIGN_KEY_CHECKS = 0')
+        //   .then(() => {
+        base_1.db.sequelize
+            .sync({ force: false, logging: console.log })
             .then(() => {
             console.log('Database synced successfully.');
         })
+            //     .then(() => {
+            //       db.sequelize.sync({ force: true, logging: console.log });
+            //     })
+            //     .catch((err) => {
+            //       console.log('Database not synced successfully.', err);
+            //     });
+            // })
             .catch((err) => {
-            console.log('Database not synced successfully.', err);
+            console.log('%%%%%%%%,', err);
         });
     }
     getApp() {

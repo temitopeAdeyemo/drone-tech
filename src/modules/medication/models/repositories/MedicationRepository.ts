@@ -1,19 +1,33 @@
+import Drone from '../../../../modules/drone/models/entities/Drone';
 import { db } from '../../../../shared/database/base';
 import IGetMedicationFilterDTO from '../../dtos/IGetMedicationFilterDTO';
 import IMedicationDTO from '../../dtos/IMedicationDTO';
 import { MedicationCreationArrtibutes } from '../entities/Medication';
 
 class MedicationRepository {
-  private ormRepository: typeof db.Medication;
+  private ormRepository = db.Medication;
 
   async findAll(data: IGetMedicationFilterDTO) {
-    await this.ormRepository.findAll({
-      where: { ...data },
+    return await this.ormRepository.findAll({
+      where: { ...data },      include: [{
+        model: Drone, as: 'Drone'
+      }] 
     });
   }
 
+  async findOne(data: IGetMedicationFilterDTO) {
+    return await this.ormRepository.findOne({
+      where: { ...data },
+      include: [{
+        model: Drone, as: 'Drone'
+      }] 
+    },);
+  }
+
   async create(data: MedicationCreationArrtibutes) {
-    await this.ormRepository.create({ ...data });
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+    
+    return await this.ormRepository.create({ ...data });
   }
 
   async update(updateData: IGetMedicationFilterDTO, data: IMedicationDTO) {

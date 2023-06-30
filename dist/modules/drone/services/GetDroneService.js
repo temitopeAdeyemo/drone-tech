@@ -11,8 +11,6 @@ class GetDroneService extends base_1.DroneBaseService {
                 return await this.droneRepository.getOne(searchFilter);
             case 'battery_level':
                 return await this.getBatteryLevel(searchFilter);
-            case 'idle_drones':
-                return await this.droneRepository.getDronesByData(searchFilter);
         }
         return null;
     }

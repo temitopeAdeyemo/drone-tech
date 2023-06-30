@@ -14,9 +14,7 @@ import { morganMiddleware, systemLogs } from '../../src/shared/utils/Logger';
 import chalk from 'chalk';
 import fileUpload from 'express-fileupload';
 import SequelizeConnection from './database/index';
-import connection from './database/index';
 import { db } from './database/base';
-import { where } from 'sequelize';
 
 export default class App {
   app: express.Application;
@@ -24,7 +22,6 @@ export default class App {
     this.app = express();
     require('../shared/services/Redis');
     this.syncDb();
-    // connection.sync({force: false});
     this.app.use(morganConfig);
     this.app.use(morganMiddleware);
     this.app.use(cors);
@@ -72,13 +69,23 @@ export default class App {
   async syncDb() {
     await SequelizeConnection.connect();
 
-    await db.sequelize
-      .sync({ force: true, logging: console.log })
-      .then(() => {
-        console.log('Database synced successfully.');
-      })
+    // db.sequelize
+    //   .query('SET FOREIGN_KEY_CHECKS = 0')
+    //   .then(() => {
+        db.sequelize
+          .sync({ force: false, logging: console.log })
+          .then(() => {
+            console.log('Database synced successfully.');
+          })
+      //     .then(() => {
+      //       db.sequelize.sync({ force: true, logging: console.log });
+      //     })
+      //     .catch((err) => {
+      //       console.log('Database not synced successfully.', err);
+      //     });
+      // })
       .catch((err) => {
-        console.log('Database not synced successfully.', err);
+        console.log('%%%%%%%%,', err);
       });
   }
 

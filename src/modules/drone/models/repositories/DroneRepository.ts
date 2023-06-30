@@ -2,6 +2,8 @@ import { db } from '../../../../shared/database/base';
 import IGetDroneFilterDTO from '@modules/drone/dtos/IGetDroneFilterDTO';
 import IDroneDTO from '../../dtos/IDroneDTO';
 import Drone, { DroneCreationArrtibutes } from '../entities/Drone';
+import Medication from '../../../../modules/medication/models/entities/Medication';
+import { Sequelize } from 'sequelize';
 
 class DronenRepository {
   private ormRepository = Drone;
@@ -9,13 +11,19 @@ class DronenRepository {
   async getAll(data: IGetDroneFilterDTO) {
     return await this.ormRepository.findAll({
       where: { ...data },
+      include: [
+        {
+          model: Medication,
+          as: 'Medications',
+        },
+      ],
     });
   }
 
   async retrieveBatteryLevel(data: IGetDroneFilterDTO) {
     return await this.ormRepository.findAll({
       where: { ...data },
-      attributes: ['serial_number', 'battery_level'],
+      attributes: ['serial_number', 'battery_capacity'],
     });
   }
 
@@ -35,8 +43,15 @@ class DronenRepository {
     });
   }
 
-  async update(updateData: IGetDroneFilterDTO, data: IDroneDTO) {
-    await db.Drone.update(data, { where: { ...updateData } });
+  async update(updateData: IGetDroneFilterDTO, data: IGetDroneFilterDTO) {
+    return await db.Drone.update(data, { where: { ...updateData } });
+  }
+
+  async updateMedIds(medId: string, condition: IGetDroneFilterDTO) {
+    return await db.Drone.update(
+      { library: Sequelize.fn('array_append', Sequelize.col('library'), medId) },
+      { where: { ...condition } }
+    );
   }
 }
 

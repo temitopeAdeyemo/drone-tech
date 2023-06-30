@@ -2,7 +2,7 @@ import IGetDroneFilterDTO from '../dtos/IGetDroneFilterDTO';
 import { DroneBaseService, IBaseService } from '../../../shared/base';
 import IDroneDTO from '../dtos/IDroneDTO';
 
-type execFor = 'get_all' | 'get_one' | 'battery_level' | 'idle_drones';
+type execFor = 'get_all' | 'get_one' | 'battery_level';
 
 class GetDroneService extends DroneBaseService implements IBaseService {
   async execute(searchFilter: IGetDroneFilterDTO, executeFor?: execFor): Promise<IDroneDTO | IDroneDTO[] | null> {
@@ -17,9 +17,6 @@ class GetDroneService extends DroneBaseService implements IBaseService {
 
       case 'battery_level':
         return await this.getBatteryLevel(searchFilter);
-
-      case 'idle_drones':
-        return await this.droneRepository.getDronesByData(searchFilter);
     }
     return null;
   }

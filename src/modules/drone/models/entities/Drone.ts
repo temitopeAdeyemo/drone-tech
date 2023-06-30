@@ -1,6 +1,6 @@
 import { Model, Sequelize, DataTypes } from 'sequelize';
 import IDroneDTO from '../../dtos/IDroneDTO';
-import MedicationDetails from '../../../medication/models/entities/Medication';
+import Medication from '../../../medication/models/entities/Medication';
 
 export type DroneCreationArrtibutes = IDroneDTO;
 class Drone extends Model implements DroneCreationArrtibutes {
@@ -10,6 +10,7 @@ class Drone extends Model implements DroneCreationArrtibutes {
   public weight!: string;
   public battery_capacity!: string;
   public state!: string;
+  public medication_ids!: string[];
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -35,6 +36,7 @@ class Drone extends Model implements DroneCreationArrtibutes {
         model: {
           type: DataTypes.STRING,
           allowNull: false,
+          values: ['Lightweight', 'Middleweight', 'Cruiserweight', 'Heavyweight'],
         },
         weight: {
           type: DataTypes.STRING,
@@ -48,8 +50,15 @@ class Drone extends Model implements DroneCreationArrtibutes {
         state: {
           type: DataTypes.STRING,
           allowNull: false,
-          values: ['employee', 'super_admin', 'travel_admin', 'travel_team_manager', 'manager', 'supplier'],
-          defaultValue: 'employee',
+          values: ['IDLE', 'LOADING', 'LOADED', 'DELIVERING', 'DELIVERED', 'RETURNING'],
+          defaultValue: 'IDLE',
+        },
+        medication_carried: {
+          type: DataTypes.ARRAY(DataTypes.STRING),
+          // references: {
+          //   model: Medication,
+          //   key: 'id',
+          // },
         },
       },
       {
@@ -60,9 +69,8 @@ class Drone extends Model implements DroneCreationArrtibutes {
     );
   }
 
-  static associateModel(): void {
-    Drone.belongsTo(MedicationDetails, { targetKey: 'id', as: 'medicationDetails' });
-    
+ public static associateModel(): void {
+    Drone.hasMany(Medication,);
   }
 }
 

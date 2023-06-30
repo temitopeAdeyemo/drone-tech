@@ -3,4 +3,5 @@ export default interface IMedicationDTO {
   weight: string;
   code: string;
   image: string;
+  drone_id: string;
 }

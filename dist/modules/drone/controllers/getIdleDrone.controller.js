@@ -10,8 +10,8 @@ class GetDrone {
             model,
             weight,
             battery_capacity,
-            state,
-        }, "idle_drones");
+            state: 'IDLE',
+        }, 'get_all');
         const successResponse = AppSuccess_1.jsonResponse.build(201, 'Idle drones data fetched successfully.', response);
         next(successResponse);
     }

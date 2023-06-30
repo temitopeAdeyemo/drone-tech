@@ -4,4 +4,5 @@ export default interface IDroneDTO {
   weight: string;
   battery_capacity: string;
   state: string;
+  medication_ids: string[];
 }

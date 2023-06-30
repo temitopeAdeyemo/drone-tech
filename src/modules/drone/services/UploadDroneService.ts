@@ -7,8 +7,10 @@ class UploadDroneService extends DroneBaseService implements IBaseService {
   async execute(droneData: IDroneDTO): Promise<void> {
     await this.throwErrIfExists('serial_number', droneData.serial_number);
 
+    droneData = this.populateDroneModel(droneData);
+
     await this.uploadDroneData(droneData);
-    
+
     return;
   }
 }

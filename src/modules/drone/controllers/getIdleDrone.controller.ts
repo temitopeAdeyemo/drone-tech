@@ -13,9 +13,9 @@ class GetDrone {
         model,
         weight,
         battery_capacity,
-        state,
+        state: 'IDLE',
       },
-      "idle_drones"
+      'get_all'
     );
 
     const successResponse = jsonResponse.build(201, 'Idle drones data fetched successfully.', response);

@@ -10,6 +10,7 @@ class Medication extends Model implements MedicationCreationArrtibutes {
   public weight!: string;
   public code!: string;
   public image!: string;
+  public drone_id!: string;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -42,6 +43,13 @@ class Medication extends Model implements MedicationCreationArrtibutes {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        drone_id: {
+          type: DataTypes.INTEGER.UNSIGNED,
+          references: {
+            model: DroneDetails, // 'Actors' would also work
+            key: 'id',
+          },
+        },
       },
       {
         sequelize,
@@ -52,7 +60,7 @@ class Medication extends Model implements MedicationCreationArrtibutes {
   }
 
   static associateModel(): void {
-    Medication.hasMany(DroneDetails, { foreignKey: 'carrier_id', sourceKey: 'id', as: 'carrier' });
+    Medication.belongsTo(DroneDetails, { foreignKey: 'drone_id', as: 'Drone' });
   }
 }
 

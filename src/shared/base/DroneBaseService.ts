@@ -32,4 +32,24 @@ export default abstract class DroneBaseService extends BaseService {
     const datas = await this.droneRepository.retrieveBatteryLevel(data);
     return datas;
   }
+
+  protected populateDroneModel(data: IDroneDTO) {
+    // const models = ['Lightweight', 'Middleweight', 'Cruiserweight', 'Heavyweight'];
+    const modelData: any = {
+      '100': 'Lightweight',
+      '200': 'Middleweight',
+      '300': 'Cruiserweight',
+      '400': 'Heavyweight',
+    };
+
+    for (const key in modelData) {
+      if (parseInt(data.weight) < parseInt(key)) {
+        data.model = modelData[key];
+        return data;
+      }
+    }
+
+    data.model = 'Heavyweight';
+    return data;
+  }
 }

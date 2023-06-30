@@ -4,11 +4,10 @@ const AppSuccess_1 = require("../../../shared/utils/AppSuccess");
 const services_1 = require("../services");
 class MedData {
     async upload(req, res, next) {
-        const { name, weight, code, image, drone_id } = req.body;
-        const files = req.files;
+        const { name, weight, code, drone_id } = req.body;
+        const file = req.files;
         const response = await new services_1.CreateMedService().execute({
-            // image: files.image,
-            image,
+            image: file.image,
             name,
             weight,
             code,

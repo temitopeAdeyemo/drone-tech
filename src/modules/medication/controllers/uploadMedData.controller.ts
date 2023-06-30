@@ -4,13 +4,12 @@ import { CreateMedService } from '../services';
 
 class MedData {
   async upload(req: Request, res: Response, next: NextFunction) {
-    const { name, weight, code, image, drone_id } = req.body;
+    const { name, weight, code, drone_id } = req.body;
 
-    const files: any = req.files;
+    const file: any = req.files;
 
     const response = await new CreateMedService().execute({
-      // image: files.image,
-      image,
+      image: file.image,
       name,
       weight,
       code,

@@ -18,7 +18,7 @@ type states = 'IDLE' | 'LOADING' | 'LOADED' | 'DELIVERING' | 'DELIVERED' | 'RETU
 export default abstract class BaseService {
   protected droneRepository = new DronenRepository();
 
-  protected readonly medicationFolder = path.join(__dirname, '../public/uploads/medication_files/');
+  protected readonly medicationFolder = path.join(__dirname, '../../../public/uploads/');
 
   protected async updateDroneData(droneId: string, updateData: IGetDroneFilterDTO) {
     return await this.droneRepository.update(updateData, { id: parseInt(droneId) });
@@ -38,7 +38,7 @@ export default abstract class BaseService {
     const sumWeight = droneData.load_weight
       ? parseInt(droneData.load_weight) + parseInt(medWeight)
       : parseInt(medWeight);
-    
+
     if (parseInt(droneData.weight) < sumWeight) {
       throw new AppError('Drone weight overload.', 401);
     }
@@ -50,11 +50,22 @@ export default abstract class BaseService {
     obj = Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== undefined));
     return obj;
   }
-  protected async createVersDirIfNotExist(medName: string): Promise<void> {
-    await fileSys.createDirIfNotExist_(`${this.medicationFolder}/${medName}`);
+  protected async createMedDirIfNotExist(medName: string): Promise<void> {
+    await fileSys.createDirIfNotExist_(`${this.medicationFolder}${medName}`);
   }
 
   protected removeFolder(path: string) {
     return fileSys.removeFolder(path);
+  }
+
+  protected async uploadFile(file: any, medicationName: string) {
+    const uploadFile = fileSys.uploadFile_(file, `${this.medicationFolder}${medicationName}`);
+    return uploadFile;
+  }
+
+  protected async errIfBatteryLow(battery_capacity: string){
+    if (parseInt(battery_capacity) <= 20) {
+      throw new AppError('Drone battery low.', 401);
+    }
   }
 }

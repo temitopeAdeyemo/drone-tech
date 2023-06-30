@@ -31,7 +31,7 @@ class SequelizeConnection {
                     },
                 };
             }
-            SequelizeConnection.instance = new sequelize_1.Sequelize(dbConfig);
+            SequelizeConnection.instance = new sequelize_1.Sequelize('mysql://127.0.0.1:3306/my_database', dbConfig);
         }
         return SequelizeConnection.instance;
     }
@@ -61,3 +61,17 @@ class SequelizeConnection {
     }
 }
 exports.default = SequelizeConnection;
+// // @/connection.ts
+// import { Sequelize } from "sequelize-typescript";
+// import { Medication } from '../../modules/medication/models/entities/Medication';
+// import { Drone } from '../../modules/drone/models/entities/Drone';
+// const connection = new Sequelize({
+//   dialect: 'mysql',
+//   host: '127.0.0.1',
+//   username: 'root',
+//   password: 'Fammieyjuliey12@#',
+//   database: 'my_database',
+//   logging: true,
+//   models: [Drone, Medication ],
+// });
+// export default connection;

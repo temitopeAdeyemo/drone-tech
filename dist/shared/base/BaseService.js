@@ -10,7 +10,7 @@ const DroneRepository_1 = __importDefault(require("../../modules/drone/models/re
 class BaseService {
     constructor() {
         this.droneRepository = new DroneRepository_1.default();
-        this.medicationFolder = path_1.default.join(__dirname, '../public/uploads/medication_files/');
+        this.medicationFolder = path_1.default.join(__dirname, '../../../public/uploads/');
     }
     async updateDroneData(droneId, updateData) {
         return await this.droneRepository.update(updateData, { id: parseInt(droneId) });
@@ -35,11 +35,20 @@ class BaseService {
         obj = Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== undefined));
         return obj;
     }
-    async createVersDirIfNotExist(medName) {
-        await FsHelper_1.default.createDirIfNotExist_(`${this.medicationFolder}/${medName}`);
+    async createMedDirIfNotExist(medName) {
+        await FsHelper_1.default.createDirIfNotExist_(`${this.medicationFolder}${medName}`);
     }
     removeFolder(path) {
         return FsHelper_1.default.removeFolder(path);
+    }
+    async uploadFile(file, medicationName) {
+        const uploadFile = FsHelper_1.default.uploadFile_(file, `${this.medicationFolder}${medicationName}`);
+        return uploadFile;
+    }
+    async errIfBatteryLow(battery_capacity) {
+        if (parseInt(battery_capacity) <= 20) {
+            throw new AppError_1.default('Drone battery low.', 401);
+        }
     }
 }
 exports.default = BaseService;

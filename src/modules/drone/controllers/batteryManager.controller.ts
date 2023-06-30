@@ -3,10 +3,8 @@ import { batteryManagerService } from '../services';
 
 class BatteryManager {
   async upload(req: Request, res: Response, next: NextFunction) {
-    console.log("GOT HERE!!!!!!!!!");
-    
     const response = await new batteryManagerService().execute().catch((err: any) => {
-      console.log(5555, err);
+      console.log(err);
     });
 
     return response;

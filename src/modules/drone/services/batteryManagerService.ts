@@ -1,4 +1,6 @@
 import { DroneBaseService, IBaseService } from '../../../shared/base';
+import { morganMiddleware, systemLogs } from '../../../../src/shared/utils/Logger';
+import chalk from 'chalk';
 
 class BatteryManagerService extends DroneBaseService implements IBaseService {
   async execute(): Promise<void> {
@@ -6,6 +8,7 @@ class BatteryManagerService extends DroneBaseService implements IBaseService {
 
     for (let drone of drones) {
       drone = drone.toJSON();
+
       if (drone.charging && parseInt(drone.battery_capacity) >= 100) drone.charging = false;
 
       if (!drone.charging && parseInt(drone.battery_capacity) <= 10) drone.charging = true;
@@ -15,8 +18,9 @@ class BatteryManagerService extends DroneBaseService implements IBaseService {
 
       await this.droneRepository.update(drone, { id: drone.id });
 
-      console.log(drone);
+      systemLogs.info(drone);
     }
+    console.log(`${chalk.green.bold('...')} ${chalk.yellow.bold('...')} ${chalk.yellow.blue('...')}`);
 
     return;
   }

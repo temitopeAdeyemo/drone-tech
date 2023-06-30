@@ -37,7 +37,8 @@ class FileSys {
         return;
     }
     async uploadFile_(file, dir) {
-        await this.createDirIfNotExist_(dir);
+        await this.createDirIfNotExist_(dir + '/file');
+        dir = dir + '/file';
         if (dir.endsWith('file')) {
             file.name = file.name.replace(/\s+/g, '-');
             file.mv(`${dir}/${file.name}`, (err) => {
@@ -64,7 +65,7 @@ class FileSys {
                     throw new AppError_1.default('icon file not Sucessfully uploaded', 500);
             });
         }
-        return dir.slice(dir.indexOf("/uploads")) + `/${file.name}`;
+        return dir.slice(dir.indexOf('/uploads')) + `/${file.name}`;
     }
     async dirExists_(path) {
         return fs.existsSync(path);

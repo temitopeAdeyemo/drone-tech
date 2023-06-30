@@ -1,6 +1,7 @@
 import { MedicationBaseService, IBaseService } from '../../../shared/base';
 import IGetMedicationFilterDTO from '../dtos/IGetMedicationFilterDTO';
 import IMedicationDTO from '../dtos/IMedicationDTO';
+import Medication from '../models/entities/Medication';
 
 type execFor = 'get_many' | 'get_one';
 
@@ -9,13 +10,15 @@ class GetMedService extends MedicationBaseService implements IBaseService {
     searchFilter: IGetMedicationFilterDTO,
     executeFor?: execFor
   ): Promise<IMedicationDTO | IMedicationDTO[] | null> {
+    let response;
     switch (executeFor) {
       case 'get_many':
-        return await this.medicationRepository.findAll(searchFilter);
+        response = await this.medicationRepository.findAll(searchFilter);
       case 'get_one':
-        return await this.medicationRepository.findOne(searchFilter);
+        response = await this.medicationRepository.findOne(searchFilter);
     }
-    return null;
+
+    return response || null;
   }
 }
 

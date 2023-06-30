@@ -12,7 +12,8 @@ class FileSys {
   }
 
   async uploadFile_(file: any, dir: string): Promise<any> {
-    await this.createDirIfNotExist_(dir);
+    await this.createDirIfNotExist_(dir + '/file');
+    dir = dir + '/file';
 
     if (dir.endsWith('file')) {
       file.name = file.name.replace(/\s+/g, '-');
@@ -41,7 +42,7 @@ class FileSys {
         if (err) throw new AppError('icon file not Sucessfully uploaded', 500);
       });
     }
-    return dir.slice(dir.indexOf("/uploads"))+`/${file.name}`;
+    return dir.slice(dir.indexOf('/uploads')) + `/${file.name}`;
   }
 
   async dirExists_(path: string) {
@@ -62,7 +63,7 @@ class FileSys {
     return;
   }
 
-  async removeFolder(path: string): Promise<void> { 
+  async removeFolder(path: string): Promise<void> {
     fs_extra.removeSync(path);
   }
 }

@@ -67,7 +67,7 @@ class App {
     async syncDb() {
         await index_1.default.connect();
         base_1.db.sequelize
-            .sync({ force: false, logging: console.log })
+            .sync({ force: false })
             .then(() => {
             console.log('Database synced successfully.');
         })

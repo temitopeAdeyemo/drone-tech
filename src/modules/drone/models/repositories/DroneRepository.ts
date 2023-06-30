@@ -9,14 +9,14 @@ class DronenRepository {
   private ormRepository = Drone;
 
   async getAll(data: IGetDroneFilterDTO) {
-    return await this.ormRepository.findAll({
+  return await this.ormRepository.findAll({
       where: { ...data },
-      include: [
-        {
-          model: Medication,
-          as: 'Medications',
-        },
-      ],
+      // include: [
+      //   {
+      //     model: Medication,
+      //     as: 'Medications',
+      //   },
+      // ],
     });
   }
 
@@ -73,8 +73,8 @@ class DronenRepository {
     return await db.Drone.update(data, { where: { ...condition } });
   }
 
-    async updateMany(data: any[]) {
-    return await db.Drone.bulkCreate(data, { updateOnDuplicate: ["battery_capacity"] })
+  async updateMany(data: any[]) {
+    return await db.Drone.bulkCreate(data, { updateOnDuplicate: ['battery_capacity'] });
   }
 }
 

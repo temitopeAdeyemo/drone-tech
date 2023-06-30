@@ -17,7 +17,7 @@ class GetDrone {
       },
       "battery_level"
     );
-
+    
     const successResponse = jsonResponse.build(201, 'Drones battery data fetched successfully.', response);
 
     next(successResponse);

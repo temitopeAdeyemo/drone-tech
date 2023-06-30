@@ -73,7 +73,7 @@ export default class App {
   async syncDb() {
     await SequelizeConnection.connect();
     db.sequelize
-      .sync({ force: false, logging: console.log })
+      .sync({ force: false })
       .then(() => {
         console.log('Database synced successfully.');
       })

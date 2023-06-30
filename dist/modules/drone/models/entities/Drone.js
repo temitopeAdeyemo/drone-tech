@@ -35,6 +35,10 @@ class Drone extends sequelize_1.Model {
                 defaultValue: '100',
                 allowNull: false,
             },
+            charging: {
+                type: sequelize_1.DataTypes.BOOLEAN,
+                allowNull: false,
+            },
             load_weight: {
                 type: sequelize_1.DataTypes.STRING,
                 allowNull: false,

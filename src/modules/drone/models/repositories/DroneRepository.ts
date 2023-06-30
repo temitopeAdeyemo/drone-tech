@@ -1,8 +1,9 @@
 import { db } from '../../../../shared/database/base';
-import IGetDroneFilterDTO from '@modules/drone/dtos/IGetDroneFilterDTO';
+import IGetDroneFilterDTO from '../../dtos/IGetDroneFilterDTO';
 import Drone, { DroneCreationArrtibutes } from '../entities/Drone';
 import Medication from '../../../../modules/medication/models/entities/Medication';
 import { Op } from 'sequelize';
+import IDroneDTO from '@modules/drone/dtos/IDroneDTO';
 
 class DronenRepository {
   private ormRepository = Drone;
@@ -70,6 +71,10 @@ class DronenRepository {
 
   async update(data: IGetDroneFilterDTO, condition: IGetDroneFilterDTO) {
     return await db.Drone.update(data, { where: { ...condition } });
+  }
+
+    async updateMany(data: any[]) {
+    return await db.Drone.bulkCreate(data, { updateOnDuplicate: ["battery_capacity"] })
   }
 }
 

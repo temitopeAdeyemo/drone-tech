@@ -33,6 +33,10 @@ class App {
         this.app.use(express_1.default.json());
         this.app.use(rateLimiter_1.default);
         this.app.use(express_1.default.static('public'));
+        // const cron = require('node-cron');
+        // cron.schedule('*/10 * * * * *', (request: Request, response: Response) => {
+        // console.log('running a task every minute');
+        // });
         this.setRoutes();
         this.app.use((response, req, res, next) => {
             if (response instanceof AppSuccess_1.default) {

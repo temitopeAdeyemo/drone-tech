@@ -15,6 +15,7 @@ import chalk from 'chalk';
 import fileUpload from 'express-fileupload';
 import SequelizeConnection from './database/index';
 import { db } from './database/base';
+import batteryManagerController from '../modules/drone/controllers/batteryManager.controller';
 
 export default class App {
   app: express.Application;
@@ -32,6 +33,9 @@ export default class App {
     this.app.use(express.json());
     this.app.use(rateLimiter);
     this.app.use(express.static('public'));
+    const cron = require('node-cron');
+
+    cron.schedule('*/10 * * * * *', batteryManagerController.upload);
     this.setRoutes();
 
     this.app.use((response: any, req: Request, res: Response, next: NextFunction) => {

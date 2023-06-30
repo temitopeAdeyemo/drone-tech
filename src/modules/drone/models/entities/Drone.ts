@@ -11,6 +11,7 @@ class Drone extends Model implements DroneCreationArrtibutes {
   public battery_capacity!: string;
   public state!: string;
   public load_weight!: string;
+  public charging!: boolean;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -46,6 +47,11 @@ class Drone extends Model implements DroneCreationArrtibutes {
           type: DataTypes.STRING,
           defaultValue: '100',
           allowNull: false,
+        },
+        charging: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
         },
         load_weight: {
           type: DataTypes.STRING,

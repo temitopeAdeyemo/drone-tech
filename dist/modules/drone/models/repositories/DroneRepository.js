@@ -68,5 +68,8 @@ class DronenRepository {
     async update(data, condition) {
         return await base_1.db.Drone.update(data, { where: { ...condition } });
     }
+    async updateMany(data) {
+        return await base_1.db.Drone.bulkCreate(data, { updateOnDuplicate: ["battery_capacity"] });
+    }
 }
 exports.default = DronenRepository;

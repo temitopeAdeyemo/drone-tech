@@ -5,4 +5,5 @@ export default interface IDroneDTO {
   battery_capacity: string;
   state: string;
   load_weight?: string;
+  charging?: boolean;
 }

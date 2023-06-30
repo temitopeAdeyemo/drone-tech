@@ -1,18 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const AppSuccess_1 = require("../../../shared/utils/AppSuccess");
-class CreateApp {
+const services_1 = require("../services");
+class BatteryManager {
     async upload(req, res, next) {
-        // const { serial_number, model, weight, battery_capacity, state } = req.body;
-        // const response = await new UploadDroneService().execute({
-        //   serial_number,
-        //   model,
-        //   weight,
-        //   battery_capacity,
-        //   state,
-        // });
-        const successResponse = AppSuccess_1.jsonResponse.build(201, 'Drone data uploaded successfully.', response);
-        next(successResponse);
+        console.log("GOT HERE!!!!!!!!!");
+        const response = await new services_1.batteryManagerService().execute().catch((err) => {
+            console.log(5555, err);
+        });
+        return response;
     }
 }
-exports.default = new CreateApp();
+exports.default = new BatteryManager();

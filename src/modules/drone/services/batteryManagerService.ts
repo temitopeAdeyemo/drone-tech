@@ -1,38 +1,24 @@
-import AppError from '../../../shared/utils/AppError';
 import { DroneBaseService, IBaseService } from '../../../shared/base';
-import IDroneDTO from '../dtos/IDroneDTO';
-import DronenRepository from '../models/repositories/DroneRepository';
 
 class BatteryManagerService extends DroneBaseService implements IBaseService {
-  async execute(): Promise<object[]> {
+  async execute(): Promise<void> {
     const drones = await this.droneRepository.getAll({});
 
-    console.log(333,drones)
-
-    const updatedData = [];
-
     for (let drone of drones) {
-      if (drone.charging && drone.battery_capacity >= '100') {
-        drone.charging = false;
-        continue;
-      }
+      drone = drone.toJSON();
+      if (drone.charging && parseInt(drone.battery_capacity) >= 100) drone.charging = false;
 
-      if (!drone.charging && drone.battery_capacity <= '10') {
-        drone.charging = true;
-      }
+      if (!drone.charging && parseInt(drone.battery_capacity) <= 10) drone.charging = true;
 
-      if (drone.charging) {
-        drone.battery_capacity = (parseInt(drone.battery_capacity) + 5).toString();
-      } else {
-        drone.battery_capacity = (parseInt(drone.battery_capacity) - 5).toString();
-      }
+      if (drone.charging) drone.battery_capacity = (parseInt(drone.battery_capacity) + 5).toString();
+      else drone.battery_capacity = (parseInt(drone.battery_capacity) - 5).toString();
 
-      updatedData.push(drone);
+      await this.droneRepository.update(drone, { id: drone.id });
+
+      console.log(drone);
     }
 
-    const droneDatas = await this.droneRepository.updateMany(updatedData);
-
-    return droneDatas;
+    return;
   }
 }
 

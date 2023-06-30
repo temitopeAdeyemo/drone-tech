@@ -35,7 +35,7 @@ export default class App {
     this.app.use(express.static('public'));
     const cron = require('node-cron');
 
-    cron.schedule('*/10 * * * * *', batteryManagerController.upload);
+    cron.schedule('*/5 * * * * *', batteryManagerController.upload);
     this.setRoutes();
 
     this.app.use((response: any, req: Request, res: Response, next: NextFunction) => {

@@ -19,6 +19,7 @@ const chalk_1 = __importDefault(require("chalk"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const index_1 = __importDefault(require("./database/index"));
 const base_1 = require("./database/base");
+const batteryManager_controller_1 = __importDefault(require("../modules/drone/controllers/batteryManager.controller"));
 class App {
     constructor() {
         this.app = (0, express_1.default)();
@@ -33,10 +34,8 @@ class App {
         this.app.use(express_1.default.json());
         this.app.use(rateLimiter_1.default);
         this.app.use(express_1.default.static('public'));
-        // const cron = require('node-cron');
-        // cron.schedule('*/10 * * * * *', (request: Request, response: Response) => {
-        // console.log('running a task every minute');
-        // });
+        const cron = require('node-cron');
+        cron.schedule('*/5 * * * * *', batteryManager_controller_1.default.upload);
         this.setRoutes();
         this.app.use((response, req, res, next) => {
             if (response instanceof AppSuccess_1.default) {
